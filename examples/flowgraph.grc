@@ -736,7 +736,7 @@
     </param>
     <param>
       <key>gain0</key>
-      <value>0</value>
+      <value>50</value>
     </param>
     <param>
       <key>if_gain0</key>
@@ -744,7 +744,7 @@
     </param>
     <param>
       <key>bb_gain0</key>
-      <value>0</value>
+      <value>50</value>
     </param>
     <param>
       <key>ant0</key>
