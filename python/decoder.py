@@ -141,6 +141,7 @@ def get_position_data(msg):
   return (lat, lon)
 
 # TODO: Does not account for surface calculations
+# TODO: Age of odd and even messages needs to be considered to ensure correct calculation
 # Ported from algorithm used in dump1090 (https://github.com/MalcolmRobb/dump1090/blob/master/mode_s.c)
 def get_position(lat0, lat1, lon0, lon1, oe):
   j = int(math.floor(((59 * lat0 - 60 * lat1) / 131072.0) + 0.5))
@@ -276,6 +277,7 @@ def get_speed_heading(msg):
   return [speed, heading]
 
 
+# Ported from: http://www.radarspotters.eu/forum/index.php?topic=5617.msg41293#msg41293
 def get_parity(msg, extended):
   msg_length = len(msg)
   payload = msg[:msg_length - 24]
