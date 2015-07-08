@@ -49,7 +49,10 @@ class decoder_thread(threading.Thread):
 
   def run(self):
     while True:
-      self.decode(self.rx_msgq.delete_head().to_string())
+      try:
+        self.decode(self.rx_msgq.delete_head().to_string())
+      except IndexError, ValueError:
+        pass
 
 
   def decode(self,decoded_msg):
