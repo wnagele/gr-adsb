@@ -17,11 +17,11 @@ Complex to Mag
 This block simply extracts the amplitude of the signal and returns it as a floating point. As we are dealing with pulse modulation we do not require any other information for demodulation.
 
 
-Binary Slicer, Multiply Const & Add Const
------------------------------------------
-The binary slicer outputs bytes for each sample. If a sample is > 0 it returns a 1, if it is < 0 it returns a 0. To align the signal we use the multiply and add const blocks prior to running it through the slicer. This increases the overall signal samples and then shifts them down from 0 so we extract the proper 0 and 1 stream.
+Threshold
+---------
+The Threshold block takes the input signal and allows us to define which level is a 1 (High) and a 0 (Low). It then outputs these and we convert them into UChar (bytes) for our further processing.
 
-Hook up a scope to the output of the Complex to Mag block if you want to see the pulse signal and adjust your shifting values.
+Hook up a scope to the output of the Complex to Mag block if you want to see the pulse signal and adjust your threshold values.
 
 
 Correlate Access Code
