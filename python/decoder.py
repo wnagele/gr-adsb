@@ -67,10 +67,11 @@ class decoder_thread(threading.Thread):
       extended = True
 
     # Verify parity
-    if self.check_parity and 0 != get_parity(decoded_msg, extended):
+    bad_parity = (0 != get_parity(decoded_msg, extended))
+    if self.check_parity and bad_parity:
         return
 
-    if "csv" == self.output_type:
+    if self.output_type in ["csv", "json"]:
       ca = bin2dec(decoded_msg[5:8])
       tc = bin2dec(decoded_msg[32:37])
       icao = bin2dec(decoded_msg[8:32])
@@ -102,7 +103,8 @@ class decoder_thread(threading.Thread):
           speed = speed_heading[0]
           heading = speed_heading[1]
 
-      self.tx_msgq.insert_tail(gr.message_from_string("%X,%s,%s,%s,%s,%s,%s,%s,%s\n" % \
+      if "csv" == self.output_type:
+        adsb_str = "%06X,%s,%s,%s,%s,%s,%s,%s,%s\n" % \
        (icao,
         callsign if callsign else "",
         int(speed) if speed != -1 else "",
@@ -111,7 +113,22 @@ class decoder_thread(threading.Thread):
         odd_even if odd_even != -1 else "",
         df if df != -1 else "",
         ca if ca != -1 else "",
-        tc if tc != -1 else "")))
+        tc if tc != -1 else "")
+
+      if "json" == self.output_type:
+        adsb_str = '{"icao": "%06X", "callsign": "%s", "speed": "%s", "heading": "%s", "position": "%s", "eo": "%s", "downlink_format": "%s", "message_subtype": "%s", "type_code": "%s", "parity": "%s"}\n' % \
+       (icao,
+        callsign if callsign else "",
+        int(speed) if speed != -1 else "",
+        int(heading) if heading != -1 else "",
+        "%.02f,%.02f" % (position[0], position[1]) if position else "",
+        odd_even if odd_even != -1 else "",
+        df if df != -1 else "",
+        ca if ca != -1 else "",
+        tc if tc != -1 else "",
+	"bad" if bad_parity else "ok")
+
+      self.tx_msgq.insert_tail(gr.message_from_string(adsb_str))
 
     elif "hex" == self.output_type:
       self.tx_msgq.insert_tail(gr.message_from_string("*%X;\n" % bin2dec(decoded_msg)))

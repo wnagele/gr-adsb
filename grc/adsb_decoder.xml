@@ -49,6 +49,10 @@
       <name>CSV</name>
       <key>csv</key>
     </option>
+    <option>
+      <name>JSON</name>
+      <key>json</key>
+    </option>
   </param>
 
   <sink>
