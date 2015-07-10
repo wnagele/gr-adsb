@@ -83,7 +83,7 @@ class decoder_thread(threading.Thread):
         if tc >= 1 and tc <= 4:
           callsign = get_callsign(decoded_msg)
         elif tc >= 9 and tc <= 18:
-          odd_even = decoded_msg[53]
+          odd_even = bin2dec(decoded_msg[53])
 
           if icao not in planes:
             planes[icao] = {}
