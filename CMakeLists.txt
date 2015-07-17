@@ -32,7 +32,7 @@ set(GR_PKG_LIBEXEC_DIR ${GR_LIBEXEC_DIR}/${CMAKE_PROJECT_NAME})
 set(GRC_BLOCKS_DIR ${GR_PKG_DATA_DIR}/grc/blocks)
 
 set(GR_REQUIRED_COMPONENTS RUNTIME)
-find_package(Gnuradio "3.7.2" REQUIRED)
+find_package(Gnuradio "3.7.7" REQUIRED)
 
 
 # Uninstall target
