@@ -16,6 +16,22 @@ Installation
 Note: If you are running MacPorts you might need to change the installation
 path. Use something like this: `cmake -DCMAKE_INSTALL_PREFIX=/opt/local ../`
 
+
+Run with Docker
+---------------
+Either build it yourself (might take a while):
+
+	docker build .
+
+Or pull it from the Docker HUB:
+
+	docker pull wnagele/gr-adsb
+
+Once you have the image you can run it in privileged mode (to give access to the USB host):
+
+	docker run --privileged -it wnagele/gr-adsb
+
+
 License
 -------
 Apache License, Version 2.0
