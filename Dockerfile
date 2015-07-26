@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 RUN apt-get -y upgrade && apt-get -y dist-upgrade
 
-RUN apt-get install -y git python build-essential xorg
+RUN apt-get install -y git python build-essential
 
 WORKDIR /
 RUN git clone https://github.com/pybombs/pybombs.git
@@ -21,4 +21,4 @@ RUN ./pybombs install gnuradio gr-osmosdr gr-adsb
 
 WORKDIR /pybombs/src/gr-adsb/examples
 RUN grcc -d . flowgraph.grc
-CMD ./run.sh
+CMD ./top_block.py
