@@ -17,6 +17,8 @@ RUN ./pybombs inv
 RUN sed -i '/^depends: /a gitrev: tags/v3.7.7.1' /pybombs/recipes/gnuradio.lwr
 # Temporary fix - didn't compile with 'uhd' depdency
 RUN sed -i "/^depends: /c\depends: make boost fftw cppunit swig gsl alsa git python cheetah wxpython numpy lxml pygtk pycairo cmake pyqt4 pyqwt5 gcc apache-thrift liblog4cpp" /pybombs/recipes/gnuradio.lwr
+# Temporary fix - installing GNU Radio via pybombs seems to miss this file
+RUN mkdir -p ~/.gnuradio/prefs && echo -n gr::vmcircbuf_mmap_tmpfile_factory > ~/.gnuradio/prefs/vmcircbuf_default_factory
 RUN ./pybombs install gnuradio gr-osmosdr gr-adsb
 
 WORKDIR /pybombs/src/gr-adsb/examples
